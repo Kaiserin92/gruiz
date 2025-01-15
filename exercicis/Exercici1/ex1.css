@@ -1,0 +1,84 @@
+
+header {
+    background: url(/fondo.jpg);
+}
+body {
+    background-color: black;
+}
+header h1 {
+    color: rgb(136, 6, 49);
+    margin: 0; padding: 10px 10px;  
+    font-size: 500%;
+    text-align: center;
+}
+
+header h2 {  
+    color: rgb(255, 255, 255);
+    margin: 0; padding: 10px 10px;  
+    font-size: 150%;
+    text-align: center;
+}
+.im {
+    width: 70px;
+    background-color: rgb(77, 1, 26);
+    float: left;
+}
+
+#menu-principal{
+    background-color: rgb(77, 1, 26);
+    padding: 17px;
+    text-align: center;
+    font-size: 150%;
+}
+
+a:hover{
+    color: rgb(194, 18, 77);
+}
+
+li a {
+    color: aliceblue;
+}
+
+b:hover{
+    color: rgb(194, 18, 77);
+}
+
+article a {
+    color: aliceblue;
+    font-size: 50%;
+}
+
+li {
+    display: inline-block;
+}
+
+article {
+    background-color: rgb(85, 20, 42);
+    margin: 10px;   
+    padding: 10px;
+    text-align: center;
+    float:left;
+    width: 300px;
+    border-radius: 20px;
+    font-size: 150%;
+}
+article h2 {
+    font-size: 70%;
+}
+article img {
+    width: 50%;
+}
+
+form {
+    clear: both;
+    color: aliceblue;
+}
+
+footer {
+    color:rgb(255, 255, 255);
+    clear: both;
+    }
+
+footer img {
+    width: 5%;
+}
