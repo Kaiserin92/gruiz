@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="ex4.css" rel="stylesheet" type="text/css">
+        <title>Sant Pere de Vallhonesta</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pannellum/2.5.3/pannellum.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pannellum/2.5.3/pannellum.js"></script>
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+</head>
+    <body>
+        <header>
+            <h1>Sant Pere de Vallhonesta</h1>
+        </header>
+        <section>
+            <fondo></fondo>
+            <h1>Historia de Sant Pete de Vallhonesta</h1>
+            <p>
+            El lloc de Vallhonesta és poc documentat i gens en els primers segles, ja que no és fins el 1115 que Bernat de Guàrdia dona a 
+            la seva muller Ermessenda béns situats a la parròquia de Sant Pere de Vallhonesta; després cal acudir a les primeres llistes de 
+            parròquies vigatanes anteriors al 1154 per conèixer l’existència de la parròquia de Valle honesta o Valle onesta, però, possiblement,
+             a causa del despoblament ocasionat per la Pesta Negra del 1348, ja no conserva la funció parroquial en les llistes del 1361 i 1438, 
+             per passar a sufragània de la parròquia de Sant Vicenç de Castellet, i després passà a la de Sant Vicenç de Castellbell, de la qual era 
+             sufragània el 1685; seguí essent sufragània de Sant Vicenç, quan aquesta recuperà les seves funcions parroquials el 1870. El territori 
+             tingué vida totalment independent en l’aspecte civil, formant una quadra jurisdiccional que estigué en mans de diverses famílies.
+            </p>
+        </section>
+        <div class="image-grid">
+            <div class="item1"><img src="img1.jpg" alt="Imatge 1"></img></div>
+            <div class="item2"><img src="img2.jpg" alt="Imatge 2"></img></div>
+            <div class="item3"><img src="img3.jpg" alt="Imatge 3"></img></div>
+            <div class="item4"><img src="img4.jpg" alt="Imatge 4"></img></div>
+            <div class="item5"><img src="img5.jpeg" alt="Imatge 5"></img></div>
+            <div class="item6"><img src="img6.jpg" alt="Imatge 6"></img></div>
+        </div>
+        <div id="panorama"></div>
+        <div class="video-container">
+            <iframe width="560" height="315" 
+            src="https://www.youtube.com/embed/0fozzxFXRac?si=A9y0yu5x93YaAPGM" 
+            title="YouTube video player" frameborder="0" allow="accelerometer; 
+            autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <section id="ubicacio">
+            <h1 id="title_map" class="left-title">Ubicació</h1>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2980.1618216360766!2d1.8852415412828472!3d41.673848471384744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4f699b30b51d3%3A0x58314229b7e08d73!2sErmita%20de%20San%20Pedro%20de%20Vallhonesta!5e0!3m2!1ses!2ses!4v1740219483084!5m2!1ses!2ses" width="800" height="600" class="centered-map" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </section>        
+
+         <footer>
+            <article id="agraiments">
+                <p>Agraïments</p>
+                <a href="https://www.enciclopedia.cat/catalunya-romanica/sant-pere-de-vallhonesta-sant-vicenc-de-castellet">
+                    <p>www.enciclopedia.cat</p>
+                </a>
+            </article>
+    
+            <section id="copy">
+                <p>&copy;2025 Gisela Ruiz</p>
+            </section>
+        </footer>
+        <script>
+            pannellum.viewer('panorama', {
+                "type": "equirectangular",
+                "panorama": "360.jpg",
+                "autoLoad": true
+            });
+        </script>
+    </body>
+  </html>

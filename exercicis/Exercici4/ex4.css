@@ -1,0 +1,143 @@
+@media screen and (max-width: 576px) {
+
+}
+  
+@media screen and (min-width:576px) and (max-width: 992px) {
+    p{
+        column-count: 2;
+    }
+}
+
+@media screen and (min-width:992px) {
+    p{
+        column-count: 3;
+    }
+}
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden; 
+}
+
+header{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #195f44;
+    left: 0;
+    top: 0;
+    position: fixed;
+}
+
+header.h1{
+    color: rgb(255, 255, 255);
+}
+
+fondo{
+    background: url(Fondo.jpg);
+    background-size: cover;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+p{
+    column-rule: 1px solid rgb(75, 75, 75);
+    column-gap: 40px;
+    font-size: 120%;
+}
+.image-grid{
+    display: grid;
+    gap: 10px;
+    padding: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: 
+    "img1 img2 img3 "
+    "img4 img5 img6 ";
+    background-color: rgb(255, 255, 255);
+}
+
+.image-grid div{
+    text-align: center;
+}
+
+.image-grid img{
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-grid img:hover {
+    transform: scale(1.4);
+}
+
+.item1 { grid-area: img1; }
+.item2 { grid-area: img2; }
+.item3 { grid-area: img3; }
+.item4 { grid-area: img4; }
+.item5 { grid-area: img5; }
+.item6 { grid-area: img6; }
+
+#panorama {
+    width: 80%;  
+    height: 300px; 
+    margin: 20px auto; 
+    display: block; 
+}
+
+.video-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; 
+}
+
+.video-container iframe {
+    width: 80%;
+    height: 400px; 
+}
+
+#ubicacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.left-title {
+    align-self: flex-start;
+    margin-left: calc(50% - 400px); 
+}
+
+.responsive-map {
+    width: 100%;
+    height: auto;
+    max-width: 800px; /* Ancho máximo del mapa */
+    border: 0;
+    box-sizing: border-box;
+}
+
+footer {
+    width: 100%;
+    height: auto; /* Cambiar a auto para que se ajuste al contenido */
+    margin-top: 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #195f4493;
+    color: #e4e4e4;
+    box-sizing: border-box;
+}
+
+#copy {
+    width: 100%;
+    height: auto; /* Cambiar a auto para que se ajuste al contenido */
+    background-color: #195f44;
+    line-height: 1em;
+    box-sizing: border-box;
+}
