@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Whac a Mole</title>
+        <link rel="stylesheet" href="WhacAMole.css">
+    </head>
+    <body>
+        <h1>Whac a Mole</h1>
+        <div class="grid-container">
+            <img class="topo" onclick="pam(this);" src="img-audio/topoNo.jpg" alt="topo">
+            <img class="topo" onclick="pam(this);" src="img-audio/topoNo.jpg" alt="topo">
+            <img class="topo" onclick="pam(this);" src="img-audio/topoNo.jpg" alt="topo">
+            <img class="topo" onclick="pam(this);" src="img-audio/topoNo.jpg" alt="topo">
+            <img class="topo" onclick="pam(this);" src="img-audio/topoNo.jpg" alt="topo">
+            <img class="topo" onclick="pam(this);" src="img-audio/topoNo.jpg" alt="topo">
+            <img class="topo" onclick="pam(this);" src="img-audio/topoNo.jpg" alt="topo">
+            <img class="topo" onclick="pam(this);" src="img-audio/topoNo.jpg" alt="topo">
+            <img class="topo" onclick="pam(this);" src="img-audio/topoNo.jpg" alt="topo">
+        <div>
+        <h1 id="puntuacio">0 punts</h1>
+        <script>
+            setInterval(imateTopo,1000);
+            let topo = document.getElementsByClassName("topo");
+            let puntuacio = 0;
+            var audio = new Audio('img-audio/boing.mp3');
+
+            function imateTopo(){
+                for(let i = 0; i<topo.length;i++){
+                    let random = Math.floor(Math.random() * 2);
+                    if(random == 0){
+                        topo[i].src ="img-audio/topoNo.jpg";
+                    }else{
+                        topo[i].src ="img-audio/topoSi.jpg";
+                    }   
+                }
+            } 
+            function pam(element){
+                if(element.src.endsWith("topoSi.jpg")){
+                    puntuacio = puntuacio + 10;
+                    document.getElementById("puntuacio").innerHTML = puntuacio + " punts";
+                    audio.play();
+                }
+                element.src ="img-audio/topoPam.jpg";
+            }
+        </script>
+    </body>
+</html>
+
