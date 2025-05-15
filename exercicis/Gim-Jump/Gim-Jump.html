@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gim-Jump</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ml5@0.12.2/dist/ml5.min.js"></script>
+    <style>
+        body {
+            background-image: url('./imagesAudio/fondoPokemon.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* Asegura que el título esté arriba */
+            justify-content: flex-start; /* Mueve el título hacia arriba */
+            align-items: center;
+        }
+        #video-container {
+            width: 850px;
+            height: 650px;
+            background-color: black;
+            border-radius: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px; /* Espacio entre el título y la cámara */
+            padding: 25px;
+        }
+        #titulo {
+            font-family: 'Press Start 2P', cursive; /* Fuente estilo videojuego */
+            font-size: 50px;
+            color: #FFD700; /* Color dorado estilo Pokémon */
+            text-align: center;
+            margin-bottom: 20px; /* Espacio entre el título y el video */
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+
+    </style>
+</head>
+<body>
+    <h1 id="titulo">Gim-Jump</h1>
+    <div id="video-container"></div>
+    
+    <script>
+        let video;
+        let poseNet;
+        let poses = [];
+        let timer = 60;
+        let timerRunning = false;
+        let score = 0;
+        let fallingObjects = [];
+        let audio = new Audio('./imagesAudio/pokemon.mp3');
+        let gameStarted = false;
+        let images = [];
+
+        const buttonRadius = 200; // Tamaño del botón de inicio
+
+        function preload() {
+            images.push(loadImage('./imagesAudio/pikachu.png'));
+            images.push(loadImage('./imagesAudio/bulbasaur.png'));
+            images.push(loadImage('./imagesAudio/squirtle.png'));
+            images.push(loadImage('./imagesAudio/charmander.png'));
+        }
+
+        function setup() {
+            let canvas = createCanvas(800, 600);
+            canvas.parent('video-container'); // Inserta el lienzo dentro del marco
+
+            video = createCapture(VIDEO);
+            video.size(800, 600);
+            video.hide(); // Ocultamos el video original para dibujarlo en el canvas
+
+            poseNet = ml5.poseNet(video, () => console.log("PoseNet carregat!"));
+            poseNet.on('pose', gotPoses);
+        }
+
+        function gotPoses(results) {
+            poses = results;
+        }
+
+        function draw() {
+            background(0);
+
+            if (video.loadedmetadata) {
+                push();
+                translate(width, 0);  // Mueve la imagen al lado opuesto
+                scale(-1, 1);  // Invierte la imagen horizontalmente
+                image(video, 0, 0, width, height);  // Dibuja el video invertido
+                pop();
+            } else {
+                console.log("Esperando que el video se cargue...");
+            }
+
+            if (!gameStarted) {
+                let buttonX = width / 2;
+                let buttonY = height / 2;
+
+                fill(0, 255, 0);
+                noStroke();
+                ellipse(buttonX, buttonY, buttonRadius * 2);
+
+                checkStartGame(buttonX, buttonY);
+            } else {
+                updateObjects();
+                displayScoreAndTimer();
+            }
+
+            drawKeypoints(); // Dibujar puntos rojos para las manos y pies
+        }
+
+        function checkStartGame(buttonX, buttonY) {
+            if (poses.length > 0) {
+                let pose = poses[0].pose;
+                let leftWrist = pose.keypoints.find(kp => kp.part === 'leftWrist');
+                let rightWrist = pose.keypoints.find(kp => kp.part === 'rightWrist');
+
+                if (leftWrist && rightWrist) {
+                    let leftDist = dist(leftWrist.position.x, leftWrist.position.y, buttonX, buttonY);
+                    let rightDist = dist(rightWrist.position.x, rightWrist.position.y, buttonX, buttonY);
+
+                    if (leftDist < buttonRadius && rightDist < buttonRadius) {
+                        gameStarted = true;
+                        startGame();
+                    }
+                }
+            }
+        }
+
+        function startGame() {
+            timerRunning = true;
+            audio.play();
+
+            setInterval(() => {
+                if (fallingObjects.length < 10) { // Limita el número total de objetos en pantalla
+                    fallingObjects.push(new FallingObject());
+                }
+            }, 2000); // Aumentamos el tiempo entre la aparición de imágenes
+        }
+
+        function updateObjects() {
+            for (let obj of fallingObjects) {
+                obj.update();
+                obj.display();
+            }
+        }
+
+        function displayScoreAndTimer() {
+            fill(255, 0, 0);
+            textSize(32);
+            textAlign(CENTER, CENTER);
+            text(`Temps: ${timer} - Puntuació: ${score}`, width / 2, 50);
+
+            if (frameCount % 60 === 0 && timer > 0) {
+                timer--;
+            }
+
+            if (timer === 0) {
+                endGame();
+            }
+        }
+
+        class FallingObject {
+            constructor() {
+                this.x = random(width);
+                this.y = 0;
+                this.speed = random(3, 7);
+                this.size = 100;
+                this.image = random(images);
+            }
+
+            update() {
+                this.y += this.speed;
+                if (this.y > height) {
+                    this.y = 0;
+                    this.x = random(width);
+                }
+                checkCollision(this);
+            }
+
+            display() {
+                image(this.image, this.x, this.y, this.size, this.size);
+            }
+        }
+
+        function checkCollision(obj) {
+            if (poses.length > 0) {
+                let pose = poses[0].pose;
+                for (let keypoint of pose.keypoints) {
+                    if (keypoint.score > 0.2 && (keypoint.part.includes('Wrist') || keypoint.part.includes('Ankle'))) {
+                        let d = dist(keypoint.position.x, keypoint.position.y, obj.x, obj.y);
+                        if (d < obj.size / 2) {
+                            fallingObjects.splice(fallingObjects.indexOf(obj), 1);
+                            score++;
+                        }
+                    }
+                }
+            }
+        }
+
+        function drawKeypoints() {
+            if (poses.length > 0) {
+                let pose = poses[0].pose;
+                for (let keypoint of pose.keypoints) {
+                    if (keypoint.score > 0.2 && (keypoint.part.includes('Wrist') || keypoint.part.includes('Ankle'))) {
+                        fill(255, 0, 0);
+                        noStroke();
+                        ellipse(keypoint.position.x, keypoint.position.y, 12, 12);
+                    }
+                }
+            }
+        }
+
+        function endGame() {
+            timerRunning = false;
+            audio.pause();
+            alert(`Fi del joc! Puntuació: ${score}`);
+            gameStarted = false;
+            score = 0;
+            timer = 60;
+            fallingObjects = [];
+        }
+    </script>
+</body>
+</html>
