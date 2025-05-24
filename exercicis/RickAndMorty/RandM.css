@@ -1,0 +1,73 @@
+body {
+  font-family: Arial, sans-serif;
+  background: url('fondo.jpg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+.main-header {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.character-container {
+  width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  background-color: #fafafa;
+}
+
+.character-image {
+  flex-shrink: 0;
+}
+
+.character-image img {
+  max-width: 200px;
+  border-radius: 8px;
+}
+
+.character-info {
+  margin-left: 20px;
+}
+
+.character-info h2 {
+  margin-top: 0;
+}
+
+.search-container {
+  width: 600px;
+  margin: 30px auto;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.search-container input[type="text"] {
+  padding: 8px;
+  font-size: 1em;
+  width: 60%;
+}
+
+.search-container button {
+  padding: 8px 12px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.loading {
+  color: white;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+#resultat {
+  width: 600px;
+  margin: 30px auto;
+}
